@@ -56,7 +56,7 @@ d3.json(link).then (function(data) {
             var colors = ['#a7f542', '#f5f542','#f5c542', '#f5c542', '#f56f42', '#f54242'];
             var labels = ["-10-10", "10-30", "30-50", "50-70", "70-90", "90+"];
             for(var i = 0; i < labels.length; i++){
-                div.innerHTML += "<i style='background:"+ colors[i]+"></i>" + labels[i]+ (labels[i + 1] ? "&ndash;" + labels[i + 1] + "<br>" : "+");
+                div.innerHTML += "<i style='background:"+ colors[i]+"></i>" ;
             }
             return div;
         };
