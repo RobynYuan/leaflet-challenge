@@ -52,7 +52,7 @@ Your first task is to visualize an earthquake data set.
 
    I finally could generate the map with popup
 
-   ![final-image](images/final-image)
+   ![final-image.png](images/final-image.png)
 
 - - -
 
