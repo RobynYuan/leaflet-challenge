@@ -9,8 +9,8 @@ d3.json(link).then (function(data) {
     console.log(earthquakeData)
     
     var myMap = L.map('map', {
-        center: [36.0522, -90.2437],
-        zoom: 3
+        center: [39.7392, -88.9903],
+        zoom: 5
     });
     
     // Add a tile layer to the mao:
@@ -40,53 +40,30 @@ d3.json(link).then (function(data) {
         let location=earthquakeData[i].geometry.coordinates
         let place=earthquakeData[i].properties.place
           L.circle([location[1],location[0]], {
+            color: 'black',
+            weight: 0.25,
             fillOpacity: 0.75,
-            color: color(location[3]),
+            fillColor: color(location[3]),
             radius: magnitude* 10000
-          }).bindPopup(`<h1>${place}</h1> <hr> <h3>Magnitude: ${magnitude}</h3>`).addTo(myMap);
+          }).bindPopup(`<h1>${place}</h1> <hr> <h2>Magnitude: ${magnitude}</h2>`).addTo(myMap);
         }
-     var legend = L.control({position: "topright",});
+
+
+      
+    var legend = L.control({position: "topright",});
         legend.onAdd = function() {
-            var div = L.DomUtil.create("div", "legend");
-            var color = ['#a7f542', '#f5f542','#f5c542', '#f5c542', '#f56f42', '#f54242'];
+            var div = L.DomUtil.create("div", "info legend");
+            var colors = ['#a7f542', '#f5f542','#f5c542', '#f5c542', '#f56f42', '#f54242'];
             var labels = ["-10-10", "10-30", "30-50", "50-70", "70-90", "90+"];
+            for(var i = 0; i < labels.length; i++){
+                div.innerHTML += "<i style='background:"+ colors[i]+"></i>" + labels[i]+ (labels[i + 1] ? "&ndash;" + labels[i + 1] + "<br>" : "+");
+            }
             return div;
         };
-            
-        legend.addTo(myMap);
+    legend.addTo(myMap);
+       
     
   });
 
 
 
-
-
-// //Creating a new marker:
-// var marker = L.marker([45.52, -122.67], {
-//   draggable: true,
-//   title: "My First Marker"
-// }).addTo(myMap);
-
-
-// function markerSize(population) {
-//   return Math.sqrt(population) * 50;
-// }
-
-// // 
-// d3.json(geoData).then(function(data) {
-//     earthquakes = data.features
-      
-//     earthquakes.forEach(function(earthquake){
-//         var magnitude = earthquake.properties.mag
-//         var location = earthquake.geometry.coordinates
-
-//         L.circle([location[1],location[0]], {
-//             color: "black",
-//             fillColor: color(location[3]),
-//             fillOpacity: .75,
-//             radius: magnitude * 10000,
-//             // stroke: false
-//         }).addTo(myMap);
-
-//     })
-// })
