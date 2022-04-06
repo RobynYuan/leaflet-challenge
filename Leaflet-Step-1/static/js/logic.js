@@ -49,39 +49,37 @@ d3.json(link).then (function(data) {
           }).bindPopup(`<h1>${location[1]},${location[0]} </h1> <br> <h1>${place} </h1> <hr> <h2>Depth: ${depth}</h2> <h2>Magnitude: ${magnitude}</h2>`).addTo(myMap);
         }
 
-        var legend = L.control({position: 'bottomright'});
-
-    legend.onAdd = function (map) {
-
-        var div = L.DomUtil.create('div', 'info legend'),
-        grades = ["Car", "ball"],
-        labels = ["http://datentaeter.de/wp-content/uploads/2016/06/flag_de.png","http://datentaeter.de/wp-content/uploads/2016/06/flag_de.png"];
-
-    // loop through our density intervals and generate a label with a colored square for each interval
-        for (var i = 0; i < grades.length; i++) {
-            div.innerHTML +=
-            grades[i] + (" <img src="+ labels[i] +" height='50' width='50'>") +'<br>';
-         }
-
-        return div;
-    };
-
-    legend.addTo(map);
-      
-    // var legend = L.control({position: "topright",});
-    //     legend.onAdd = function() {
-    //         var div = L.DomUtil.create("div", "info legend");
-    //         var colors = ['#a7f542', '#f5f542','#f5c542', '#f5c542', '#f56f42', '#f54242'];
-    //         var labels = ["-10-10", "10-30", "30-50", "50-70", "70-90", "90+"];
-    //         for(var i = 0; i < labels.length; i++){
-    //             div.innerHTML += "<i style='background:"+ colors[i]+"></i>" ;
-    //         }
-    //         return div;
-    //     };
-    // legend.addTo(myMap);
-       
-    
+          // Here we create a legend control object.
+  var legend = L.control({
+    position: "bottomright"
   });
+
+  // Then add all the details for the legend
+  legend.onAdd = function() {
+    var div = L.DomUtil.create("div", "info legend");
+
+    var depth = [-10, 10, 30, 50, 70,90];
+    var colors = [
+      "#98ee00",
+      "#d4ee00",
+      "#eecc00",
+      "#ee9c00",
+      "#ea822c",
+      "#ea2c2c"
+    ];
+
+    // Looping through our intervals to generate a label with a colored square for each interval.
+    for (var i = 0; i < depth.length; i++) {
+      div.innerHTML += "<i style='background: " + colors[i] + "'></i> "
+      + depth[i] + (depth[i + 1] ? "&ndash;" + depth[i + 1] + "<br>" : "+");
+    }
+    return div;
+  };
+
+  // Finally, we our legend to the map.
+  legend.addTo(myMap);
+});
+
 
 
 
