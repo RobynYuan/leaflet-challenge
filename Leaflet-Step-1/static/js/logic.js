@@ -20,47 +20,65 @@ d3.json(link).then (function(data) {
 
     function color(depth) {
         if (depth > 90) {
-            return '#f54242'
+            return '#ea2c2c'
         } else if (depth > 70) {
-            return '#f56f42'
+            return '#ea822c'
         } else if (depth > 50) {
-            return '#f5c542'
+            return '#ee9c00'
         } else if (depth > 30) {
-            return '#f5c542'
+            return '#eecc00'
         } else if (depth > 10) {
-            return '#f5f542'
+            return '#d4ee00'
         } else {
-            return '#a7f542'
+            return '#98ee00'
         }
     }
     // // Loop through the earthquakeData array, and create one marker for each pair of coordinates.
     for (var i = 0; i < earthquakeData.length; i++) {
         let magnitude= earthquakeData[i].properties.mag
-   
+        
         let location=earthquakeData[i].geometry.coordinates
+        let depth=location[2]
         let place=earthquakeData[i].properties.place
           L.circle([location[1],location[0]], {
             color: 'black',
             weight: 0.25,
             fillOpacity: 0.75,
-            fillColor: color(location[3]),
+            fillColor: color(depth),
             radius: magnitude* 10000
-          }).bindPopup(`<h1>${place}</h1> <hr> <h2>Magnitude: ${magnitude}</h2>`).addTo(myMap);
+          }).bindPopup(`<h1>${location[1]},${location[0]} </h1> <br> <h1>${place} </h1> <hr> <h2>Depth: ${depth}</h2> <h2>Magnitude: ${magnitude}</h2>`).addTo(myMap);
         }
 
+        var legend = L.control({position: 'bottomright'});
 
+    legend.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'info legend'),
+        grades = ["Car", "ball"],
+        labels = ["http://datentaeter.de/wp-content/uploads/2016/06/flag_de.png","http://datentaeter.de/wp-content/uploads/2016/06/flag_de.png"];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+        for (var i = 0; i < grades.length; i++) {
+            div.innerHTML +=
+            grades[i] + (" <img src="+ labels[i] +" height='50' width='50'>") +'<br>';
+         }
+
+        return div;
+    };
+
+    legend.addTo(map);
       
-    var legend = L.control({position: "topright",});
-        legend.onAdd = function() {
-            var div = L.DomUtil.create("div", "info legend");
-            var colors = ['#a7f542', '#f5f542','#f5c542', '#f5c542', '#f56f42', '#f54242'];
-            var labels = ["-10-10", "10-30", "30-50", "50-70", "70-90", "90+"];
-            for(var i = 0; i < labels.length; i++){
-                div.innerHTML += "<i style='background:"+ colors[i]+"></i>" ;
-            }
-            return div;
-        };
-    legend.addTo(myMap);
+    // var legend = L.control({position: "topright",});
+    //     legend.onAdd = function() {
+    //         var div = L.DomUtil.create("div", "info legend");
+    //         var colors = ['#a7f542', '#f5f542','#f5c542', '#f5c542', '#f56f42', '#f54242'];
+    //         var labels = ["-10-10", "10-30", "30-50", "50-70", "70-90", "90+"];
+    //         for(var i = 0; i < labels.length; i++){
+    //             div.innerHTML += "<i style='background:"+ colors[i]+"></i>" ;
+    //         }
+    //         return div;
+    //     };
+    // legend.addTo(myMap);
        
     
   });
