@@ -49,7 +49,7 @@ d3.json(link).then (function(data) {
           }).bindPopup(`<h1>${location[1]},${location[0]} </h1> <br> <h1>${place} </h1> <hr> <h2>Depth: ${depth}</h2> <h2>Magnitude: ${magnitude}</h2>`).addTo(myMap);
         }
 
-          // Here we create a legend control object.
+          //  create a legend control object.
   var legend = L.control({
     position: "bottomright"
   });
@@ -75,8 +75,8 @@ d3.json(link).then (function(data) {
     }
     return div;
   };
-
-  // Finally, we our legend to the map.
+ 
+  // add legend to the map.
   legend.addTo(myMap);
 });
 

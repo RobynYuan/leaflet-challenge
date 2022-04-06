@@ -50,9 +50,10 @@ Your first task is to visualize an earthquake data set.
 
    * Your visualization should look something like the map above.
 
-   I finally could generate the map with popup
+   I finally could generate the map with legend and the popup for each marker
 
    ![final-image.png](images/final-image.png)
+   ![final-image_2.png](final-image_2.png)
 
 - - -
 

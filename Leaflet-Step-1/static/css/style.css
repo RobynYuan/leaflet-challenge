@@ -10,4 +10,9 @@ body {
   html {
     height: 100%;
   }
-  
+  /* Set lengend*/
+  i{
+    display:inline-block;
+    width:20px;
+    height:20px;
+  }
